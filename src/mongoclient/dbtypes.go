@@ -28,6 +28,7 @@ type Image struct {
 
 type ShopItem struct {
 	id          int
+	amount      int
 	name        string
 	description string
 	price       float64
