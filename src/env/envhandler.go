@@ -11,6 +11,8 @@ import (
 
 type Environment struct{}
 
+var env Environment
+
 // get environment variable value
 func (*Environment) LookUp(varname string) (string, error) {
 	envvar, exists := os.LookupEnv(varname)
@@ -27,15 +29,16 @@ func initEnv() {
 	if err := godotenv.Load(); err != nil {
 		log.Print("No .env file found")
 	}
+
+	env = Environment{}
 }
 
-// create new env
+// create and return env
 func MakeEnv() *Environment {
 
 	// init os env vars from file
 	var once sync.Once
 	once.Do(initEnv)
 
-	env := Environment{}
 	return &env
 }
