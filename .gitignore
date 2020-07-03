@@ -1,0 +1,55 @@
+# API keys
+.env
+
+# Compiled Frontend
+static/*
+
+# Downloaded dependencies
+pkg/*
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.a
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# VS Code
+.ionide
+
+# F# stuff
+# Source: https://gist.github.com/klaeufer/5dacae21f29ea888ea14
+*.suo
+*.obj
+*.pdb
+*.user
+*.vspscc
+*.bak
+*.cache
+*.log
+*.lib
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+[Bb]uild[Pp]rocess[Tt]emplates/*
+Published/*
+[Tt]humbs.db
+[Uu]pgrade[Ll]og*.[Xx][Mm][Ll]
+_[Uu]pgradeReport_Files*/
+*.build.csdef
+[Pp]ackage/*
+aspnetdb_log.ldf
+*[Vv]isual[Ss]tate.[Xx][Mm][Ll]
+*~
+\#*\#
