@@ -1,5 +1,7 @@
 # Full Stack Online Shop in Go & F\#
 
+## **Work in Progress!**  
+
 This is a simple online shop demo. The back-end is written in GO connected to a MongoDB database. The front-end in written in F# and compiled to WASM with Bolero.
 
 ## Setup instructions
