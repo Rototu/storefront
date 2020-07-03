@@ -10,10 +10,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var dbClient *mongo.Client
-
 // initialises mongo connection
-func ConnectToDB() (*mongo.Client, error) {
+func Connect() (*mongo.Client, error) {
 	// create ctx
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -37,8 +35,21 @@ func ConnectToDB() (*mongo.Client, error) {
 }
 
 // disconnects from mongo
-func DisconnectFromDB() {
-	if err := dbClient.Disconnect(context.Background()); err != nil {
+func Disconnect(client *mongo.Client) {
+	if err := client.Disconnect(context.Background()); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// insert element into collection
+func GetCollection(client *mongo.Client, collectionName Collection) (*mongo.Collection, error) {
+	environment := env.MakeEnv()
+	dbName, err := environment.LookUp("DB_NAME")
+	if err != nil {
+		return nil, errors.New("Could not obtain db name fron env")
+	}
+
+	collection := client.Database(dbName).Collection(collectionName.String())
+
+	return collection, nil
 }
