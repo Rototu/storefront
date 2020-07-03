@@ -1,5 +1,17 @@
 package mongoclient
 
+type Collection int
+
+const (
+	Items Collection = iota
+	Users
+	Ratings
+)
+
+func (d Collection) String() string {
+	return [...]string{"items", "users", "ratings"}[d]
+}
+
 type Rating struct {
 	id       int
 	rating   int
