@@ -14,7 +14,7 @@ func (d Collection) String() string {
 	return [...]string{"items", "users", "ratings"}[d]
 }
 
-// Rating Expected structure for rating items in db
+// Rating structure for rating items in db
 type Rating struct {
 	id       int
 	rating   int
@@ -23,7 +23,7 @@ type Rating struct {
 	date     string
 }
 
-// Image Expected structure for image items in db
+// Image structure for image items in db
 type Image struct {
 	filename string
 	width    int
@@ -39,4 +39,12 @@ type ShopItem struct {
 	price       float64
 	ratings     []Rating
 	images      []Image
+}
+
+// User structure for users in db
+type User struct {
+	id           int
+	userName     string
+	email        string
+	passwordhash int64
 }
