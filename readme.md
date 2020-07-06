@@ -13,11 +13,13 @@ Here are the preliminary steps for the project:
 3. Clone project.  
 4. Set project `$GOPATH` to project root directory.
 5. Duplicate/rename the `initenv` file to `.env` and manually set the variables in it.
+6. Make sure to have a terminal application that can handle `.sh` files installed (Git Bash recommended).
 
 ## Building instructions  
 
-To build run `./build.sh` in the Linux terminal or in Git Bash.
+To build run `./build.sh` in the terminal.
 
 ## How to run
 
-Run `./runserver.sh` in the Linux terminal or in Git Bash.
+To start the server run `./runserver.sh` in the terminal.  
+Then access `http://localhost:3000/` to view served page.  
