@@ -16,23 +16,8 @@ Here are the preliminary steps for the project:
 
 ## Building instructions  
 
-### Windows
-
-Run `build.bat` in cmd.  
-
-### Linux
-
-Run `./build.sh` in terminal.  
-This method also works for windows machines if the file is run from Git Bash.
+To build run `./build.sh` in the Linux terminal or in Git Bash.
 
 ## How to run
 
-Note: Make sure to run the executable in cmd / terminal from the project root folder, not from the `bin` folder. Otherwise the executable will not have access to the static folder to serve `index.html`.
-
-### Windows
-
-Run `bin\StoreFront.exe` in cmd to start server.  
-
-### Linux
-
-Run `./bin/StoreServer_lin.a` in terminal to start server.
+Run `./runserver.sh` in the Linux terminal or in Git Bash.
