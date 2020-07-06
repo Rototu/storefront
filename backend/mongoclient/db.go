@@ -68,7 +68,7 @@ func prepareUsersForInsertion(users []*User) []interface{} {
 }
 
 // InsertUsers inserts user in db
-func InsertUsers(userCollection *mongo.Collection, users []*User) (*InsertManyResult, error) {
+func InsertUsers(userCollection *mongo.Collection, users []*User) (*mongo.InsertManyResult, error) {
 
 	// create temp ctx
 	ctx, cancel := context.WithCancel(context.Background())
