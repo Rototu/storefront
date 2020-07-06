@@ -2,20 +2,20 @@ package env
 
 import (
 	"errors"
-	"log"
 	"os"
 	"sync"
 
 	"github.com/joho/godotenv"
 )
 
+// Environment wrapper for getting env vars
 type Environment struct{}
 
 const envPath = "../../.env"
 
 var env Environment
 
-// get environment variable value
+// LookUp get environment variable value
 func (*Environment) LookUp(varname string) (string, error) {
 	envvar, exists := os.LookupEnv(varname)
 
@@ -27,20 +27,22 @@ func (*Environment) LookUp(varname string) (string, error) {
 }
 
 // set os env vars from .env file at root of project
-func initEnv() {
+func initEnv(errChan chan error) {
 	if err := godotenv.Load(envPath); err != nil {
-		log.Print("No .env file found")
+		errChan <- err
 	}
 
 	env = Environment{}
 }
 
-// create and return env
-func MakeEnv() *Environment {
+// MakeEnv create and return env
+func MakeEnv() (*Environment, error) {
 
 	// init os env vars from file
 	var once sync.Once
-	once.Do(initEnv)
+	var errChan = make(chan error)
+	once.Do(func() { initEnv(errChan) })
+	err := <-errChan
 
-	return &env
+	return &env, err
 }
