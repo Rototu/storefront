@@ -1,3 +1,6 @@
+# Custom mongod launcher
+startmongo.bat
+
 # API keys
 .env
 
