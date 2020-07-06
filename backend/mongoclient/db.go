@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// initialises mongo connection
+// Connect initialises mongosb connection
 func Connect() (*mongo.Client, error) {
 	// create ctx
 	ctx, cancel := context.WithCancel(context.Background())
@@ -37,14 +37,14 @@ func Connect() (*mongo.Client, error) {
 	return client, nil
 }
 
-// disconnects from mongo
+// Disconnect disconnects from mongodb
 func Disconnect(client *mongo.Client) {
 	if err := client.Disconnect(context.Background()); err != nil {
 		log.Fatal(err)
 	}
 }
 
-// insert element into collection
+// GetCollection gets mongodb collection
 func GetCollection(client *mongo.Client, collectionName Collection) (*mongo.Collection, error) {
 	environment := env.MakeEnv()
 	dbName, err := environment.LookUp("DB_NAME")

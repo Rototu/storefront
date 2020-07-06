@@ -11,6 +11,8 @@ import (
 
 type Environment struct{}
 
+const envPath = "../../.env"
+
 var env Environment
 
 // get environment variable value
@@ -26,7 +28,7 @@ func (*Environment) LookUp(varname string) (string, error) {
 
 // set os env vars from .env file at root of project
 func initEnv() {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load(envPath); err != nil {
 		log.Print("No .env file found")
 	}
 
