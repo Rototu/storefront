@@ -18,6 +18,7 @@ Here are the preliminary steps for the project:
 
     to install **uglify-js** and **serve** globally.
 3. Make sure to have a terminal application that can handle `.sh` files installed (e.g. Git Bash for Windows).
+4. Set up **.env** files in the *frontend* and *backend* folders based on the **initenv** files in there.
 
 ## Building instructions  
 
