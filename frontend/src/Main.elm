@@ -106,7 +106,7 @@ type alias Htmls msg =
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = "URL Interceptor"
+    { title = "Store Platform"
     , body = [ layoutSections model |> renderLayout |> toUnstyled ]
     }
 
@@ -223,6 +223,7 @@ searchinputCss =
         , ST.fullWidth
         , height (px 50)
         , border3 (px 2) solid ST.black
+        , padding (px 1)
         ]
 
 
@@ -261,4 +262,4 @@ iconButton icon clickMessage size iconColor =
         CancelIcon ->
             div
                 [ style, onClick clickMessage ]
-                [ Outlined.cancel size Inherit |> fromUnstyled ]
+                [ Outlined.close size Inherit |> fromUnstyled ]
