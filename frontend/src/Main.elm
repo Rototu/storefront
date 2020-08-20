@@ -1,6 +1,5 @@
 module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
-import Autocomplete
 import Browser
 import Browser.Navigation as Nav
 import Css exposing (..)
@@ -38,7 +37,6 @@ main =
 type alias Model =
     { key : Nav.Key
     , url : Url.Url
-    , autocomplete : Autocomplete.Autocomplete AutocompleteSuggestion
     , selected : Maybe AutocompleteSuggestion
     , error : String
     }
@@ -46,7 +44,7 @@ type alias Model =
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
-    ( Model key url (Autocomplete.init "") Nothing "", Cmd.none )
+    ( Model key url Nothing "", Cmd.none )
 
 
 
