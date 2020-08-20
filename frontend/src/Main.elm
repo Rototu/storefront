@@ -242,9 +242,9 @@ iconButton icon clickMessage size iconColor =
                 , ST.clickable
                 , Grid.centeredOneCellGrid
                 , hoverStyle
-                , transition [
-                    Css.Transitions.backgroundColor3 200 0 easeInOut
-                ]
+                , transition
+                    [ Css.Transitions.backgroundColor3 200 0 easeInOut
+                    ]
                 ]
 
         hoverStyle =
