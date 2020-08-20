@@ -3,9 +3,12 @@ module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 import Autocomplete
 import Browser
 import Browser.Navigation as Nav
-import Html exposing (Attribute, Html, div, img, input)
-import Html.Attributes exposing (height, src)
-import Html.Events exposing (onClick)
+import Css exposing (..)
+import Css.Transitions exposing (easeInOut, transition)
+import Grid
+import Html.Styled exposing (Attribute, Html, div, fromUnstyled, img, input, toUnstyled)
+import Html.Styled.Attributes as Attr
+import Html.Styled.Events exposing (onClick)
 import Material.Icons.Outlined as Outlined
 import Material.Icons.Types exposing (Coloring(..))
 import StyleTools as ST
@@ -104,70 +107,80 @@ type alias Htmls msg =
 view : Model -> Browser.Document Msg
 view model =
     { title = "URL Interceptor"
-    , body = [ layoutSections model |> renderLayout ]
+    , body = [ layoutSections model |> renderLayout |> toUnstyled ]
     }
 
 
 renderLayout : Htmls Msg -> Html Msg
 renderLayout sections =
-    div (layoutCSS (List.length sections)) sections
+    div
+        [ Attr.css [ layoutCSS (List.length sections) ] ]
+        sections
 
 
 layoutSections : Model -> Htmls Msg
 layoutSections model =
-    [ renderSection 200 ST.white navbarCss [ logo, searchinput model ]
-    , renderSection 100 (ST.RgbColor 255 100 255) [] []
-    , renderSection 100 (ST.RgbColor 0 0 255) [] []
+    [ renderSection 200 ST.white [ navbarCss ] [ logo, searchinput model ]
+    , renderSection 100 (rgb 255 100 255) [] []
+    , renderSection 100 (rgb 0 0 255) [] []
     ]
 
 
-renderSection : Int -> ST.Color -> Attributes Msg -> Htmls Msg -> Html Msg
+renderSection : Int -> Color -> List Style -> Htmls Msg -> Html Msg
 renderSection customPxHeight customColor customStyle children =
-    div (customStyle ++ sectionCSS customPxHeight customColor) children
+    div [ Attr.css (customStyle ++ sectionCSS customPxHeight customColor) ] children
 
 
-sectionCSS : Int -> ST.Color -> Attributes Msg
+sectionCSS : Int -> Color -> List Style
 sectionCSS customHeight customColor =
-    ST.styles
-        [ ST.fullWidth
-        , ST.height customHeight ST.Px
-        , ST.backgroundColor customColor
-        ]
+    [ ST.fullWidth
+    , height (customHeight |> toFloat |> px)
+    , backgroundColor customColor
+    ]
 
 
-layoutCSS : Int -> Attributes Msg
+layoutCSS : Int -> Style
 layoutCSS sectionCount =
     let
         rows =
-            ST.FastGrid sectionCount ST.Auto
+            List.repeat sectionCount Grid.AutoSize |> Grid.GRow
 
         cols =
-            ST.FastGrid 1 ST.Equal
+            Grid.GCol [ Grid.Fraction 1 ]
     in
-    ST.grid ( rows, cols )
+    batch
+        [ Grid.grid ( rows, cols )
+        , fontFamilies [ qt "Roboto", .value sansSerif ]
+        ]
 
 
-navbarCss : Attributes Msg
+navbarCss : Style
 navbarCss =
     let
         rows =
-            ST.FastGrid 1 ST.Auto
+            Grid.GRow [ Grid.Fraction 1 ]
 
         cols =
-            ST.CustomGrid [ "2fr", "8fr", "2fr" ]
+            [ 2, 8, 2 ]
+                |> List.map Grid.Fraction
+                |> Grid.GCol
     in
-    ST.grid ( rows, cols )
+    batch
+        [ Grid.grid ( rows, cols )
+        , Grid.placeItems Grid.Center Grid.Center
+        ]
 
 
 logo : Html Msg
 logo =
-    div [] [ img [ src "../img/logo.png", height 50 ] [] ]
-
+    div [] [ img [ Attr.src "../img/logo.png", Attr.height 50 ] [] ]
 
 
 searchinput : Model -> Html Msg
 searchinput model =
-    div searchinputCss (searchComponents model)
+    div
+        [ Attr.css [ searchinputCss ] ]
+        (searchComponents model)
 
 
 searchComponents : Model -> Htmls Msg
@@ -177,23 +190,40 @@ searchComponents model =
     , iconButton SearchIcon NoOp 20 ST.black
     ]
 
-inputField : Model -> Html Msg
-inputField model = 
-    let
-        styles = ST.styles [ST.fullWidth, ST.fullHeight, ("outline", "none"), ST.noBorder, ST.borderBox]
-    in
-    input styles []
 
-searchinputCss : Attributes Msg
+inputField : Model -> Html Msg
+inputField model =
+    let
+        styles =
+            Attr.css
+                [ ST.fullWidth
+                , ST.fullHeight
+                , outline none
+                , ST.noBorder
+                , boxSizing borderBox
+                , fontFamily inherit
+                , fontSize (rem 1)
+                , padding2 (px 0) (px 10)
+                ]
+    in
+    input [ styles ] []
+
+
+searchinputCss : Style
 searchinputCss =
     let
         rows =
-            ST.FastGrid 1 ST.Equal
+            Grid.GRow [ Grid.Fraction 1 ]
 
         cols =
-            ST.CustomGrid [ "10fr", "40px", "40px" ]
+            Grid.GCol [ Grid.Fraction 10, Grid.Pixels 40, Grid.Pixels 40 ]
     in
-    ST.grid ( rows, cols ) ++ ST.styles [ ST.fullWidth, ST.height 50 ST.Px, ST.borderBottom 3 ST.black ]
+    batch
+        [ Grid.grid ( rows, cols )
+        , ST.fullWidth
+        , height (px 50)
+        , border3 (px 2) solid ST.black
+        ]
 
 
 type Icon
@@ -201,19 +231,34 @@ type Icon
     | CancelIcon
 
 
-iconButton : Icon -> Msg -> Int -> ST.Color -> Html Msg
-iconButton icon clickMessage size color =
+iconButton : Icon -> Msg -> Int -> Color -> Html Msg
+iconButton icon clickMessage size iconColor =
     let
         style =
-            ST.styles [ ST.textColor color, ST.fullWidth, ST.fullHeight, ST.pointerCursor ] ++ ST.centerContentGrid
+            Attr.css
+                [ color iconColor
+                , ST.fullWidth
+                , ST.fullHeight
+                , ST.clickable
+                , Grid.centeredOneCellGrid
+                , hoverStyle
+                , transition [
+                    Css.Transitions.backgroundColor3 200 0 easeInOut
+                ]
+                ]
+
+        hoverStyle =
+            hover
+                [ backgroundColor <| rgb 230 230 230
+                ]
     in
     case icon of
         SearchIcon ->
             div
-                (style ++ [ onClick clickMessage ])
-                [ Outlined.search size Inherit ]
+                [ style, onClick clickMessage ]
+                [ Outlined.search size Inherit |> fromUnstyled ]
 
         CancelIcon ->
             div
-                (style ++ [ onClick clickMessage ])
-                [ Outlined.cancel size Inherit ]
+                [ style, onClick clickMessage ]
+                [ Outlined.cancel size Inherit |> fromUnstyled ]

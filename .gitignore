@@ -28,3 +28,6 @@ package-lock.json
 
 # elm cache and utils
 elm-stuff
+
+# compiled elm
+*.js
