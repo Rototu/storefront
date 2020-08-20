@@ -1,11 +1,5 @@
-# Custom mongod launcher
-startmongo.bat
-
 # API keys
 .env
-
-# Compiled Frontend
-static/*
 
 # Downloaded dependencies
 pkg/*
@@ -26,34 +20,11 @@ pkg/*
 
 # VS Code
 .ionide
+.vscode
 
-# F# stuff
-# Source: https://gist.github.com/klaeufer/5dacae21f29ea888ea14
-*.suo
-*.obj
-*.pdb
-*.user
-*.vspscc
-*.bak
-*.cache
-*.log
-*.lib
-[Bb]in
-[Dd]ebug*/
-obj/
-[Rr]elease*/
-[Tt]est[Rr]esult*
-[Bb]uild[Ll]og.*
-*.[Pp]ublish.xml
-[Bb]uild[Pp]rocess[Tt]emplates/*
-Published/*
-[Tt]humbs.db
-[Uu]pgrade[Ll]og*.[Xx][Mm][Ll]
-_[Uu]pgradeReport_Files*/
-*.build.csdef
-[Pp]ackage/*
-aspnetdb_log.ldf
-*[Vv]isual[Ss]tate.[Xx][Mm][Ll]
-*~
-\#*\#
-.fake
+# local dev node dependencies
+node_modules
+package-lock.json
+
+# elm cache and utils
+elm-stuff

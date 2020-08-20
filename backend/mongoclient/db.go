@@ -20,7 +20,8 @@ func Connect() (*mongo.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	mongourl, err := environment.LookUp("MONGO_URL")
+
+	mongourl, err := environment.LookUp("BACKEND_MONGO_URI")
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +50,8 @@ func GetCollection(client *mongo.Client, collectionName Collection) (*mongo.Coll
 	if err != nil {
 		return nil, err
 	}
-	dbName, err := environment.LookUp("DB_NAME")
+
+	dbName, err := environment.LookUp("BACKEND_DB_NAME")
 	if err != nil {
 		return nil, err
 	}

@@ -8,7 +8,7 @@ func (e *errorString) Error() string {
 	return e.s
 }
 
-// creates simple custom error
+// New creates simple custom error
 func New(text string) error {
 	return &errorString{text}
 }

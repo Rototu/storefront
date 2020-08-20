@@ -8,6 +8,7 @@ import (
 
 func TestDB(t *testing.T) {
 	cl, err := mongoclient.Connect()
+
 	if err != nil {
 		t.Errorf("Error encounterd in connecting to DB: %s", err)
 	}
