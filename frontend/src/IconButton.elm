@@ -25,11 +25,9 @@ style textColor =
         , ST.clickable
         , Grid.centeredOneCellGrid
         , transition
-            [ Css.Transitions.backgroundColor3 100 0 easeInOut
-            ]
+            [ Css.Transitions.backgroundColor3 100 0 easeInOut]
         , hover
-            [ backgroundColor <| rgb 230 230 230
-            ]
+            [ rgb 230 230 230 |> backgroundColor ]
         ]
 
 

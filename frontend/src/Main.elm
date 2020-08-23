@@ -6,7 +6,7 @@ import Html.Styled exposing (toUnstyled)
 import Page.Home
 import Section exposing (SectionHeight(..))
 import Url
-
+import Page.Home.Config exposing (LayoutConfig)
 
 
 -- MAIN
@@ -95,9 +95,10 @@ view model =
     }
 
 
-homeViewConfig : Page.Home.LayoutConfig Msg
+homeViewConfig : LayoutConfig Msg
 homeViewConfig =
     { stopAutocompleteMsg = NoOp
     , startSearchMsg = NoOp
+    , selectedSuggestionMsg = NoOp
     , sectionHeights = [ FixedPx 200, FixedPx 200, FixedPx 200 ]
     }

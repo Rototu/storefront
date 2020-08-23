@@ -37,8 +37,8 @@ grid : Grid -> Style
 grid ( rowSizes, colSizes ) =
     batch
         [ property "display" "grid"
-        , property "grid-template-rows" <| parseRowSizes rowSizes
-        , property "grid-template-columns" <| parseColSizes colSizes
+        , parseRowSizes rowSizes |> property "grid-template-rows"
+        , parseColSizes colSizes |> property "grid-template-columns"
         ]
 
 

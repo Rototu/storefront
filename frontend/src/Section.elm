@@ -7,7 +7,7 @@ import StyleTools as ST
 
 
 type SectionHeight
-    = FixedPx Int
+    = FixedPx Float
     | Auto
 
 
@@ -20,7 +20,7 @@ parseSectionHeight : SectionHeight -> Style
 parseSectionHeight h =
     case h of
         FixedPx val ->
-            val |> toFloat |> px |> height
+            height (val |> px)
 
         Auto ->
             height auto

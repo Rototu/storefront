@@ -1,6 +1,6 @@
-module CssTheme exposing (font, mainFontSize, smallButtonIconSize, themeColor)
+module CssTheme exposing (autocompleteContainerHeight, borderWidth, font, mainFontSize, navItemHeight, searchBarWidth, searchPadding, smallButtonIconSize, themeColor)
 
-import Css exposing (Color, Px, Style, fontFamilies, px, qt, rgb, sansSerif)
+import Css
 import StyleTools as ST
 
 
@@ -9,18 +9,43 @@ smallButtonIconSize =
     20
 
 
-themeColor : { text : Color, main : Color }
+themeColor : { text : Css.Color, main : Css.Color }
 themeColor =
     { text = ST.black
-    , main = rgb 0 0 100
+    , main = Css.rgb 0 0 100
     }
 
 
-mainFontSize : Px
+mainFontSize : Css.Px
 mainFontSize =
-    px 20
+    Css.px 20
 
 
-font : Style
+font : Css.Style
 font =
-    fontFamilies [ qt "Roboto", .value sansSerif ]
+    Css.fontFamilies [ Css.qt "Roboto", .value Css.sansSerif ]
+
+
+navItemHeight : Float
+navItemHeight =
+    50
+
+
+borderWidth : Float
+borderWidth =
+    2
+
+
+autocompleteContainerHeight : Css.Rem
+autocompleteContainerHeight =
+    Css.rem 2
+
+
+searchPadding : Float
+searchPadding =
+    10
+
+
+searchBarWidth : Int
+searchBarWidth =
+    400

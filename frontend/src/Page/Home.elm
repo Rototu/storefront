@@ -1,10 +1,11 @@
-module Page.Home exposing (LayoutConfig, viewLayout)
+module Page.Home exposing (viewLayout)
 
 import Css exposing (Style, batch, rgb)
 import CssTheme as CT
 import Grid
 import Html.Styled exposing (Html, div)
 import Html.Styled.Attributes exposing (css)
+import Page.Home.Config exposing (LayoutConfig)
 import Page.Home.NavbarSection as NavbarSection
 import Section
 
@@ -20,16 +21,9 @@ viewLayout config =
         sections
 
 
-type alias LayoutConfig msg =
-    { stopAutocompleteMsg : msg
-    , startSearchMsg : msg
-    , sectionHeights : List Section.SectionHeight
-    }
-
-
 layoutSections : LayoutConfig msg -> List (Html msg)
 layoutSections config =
-    [ NavbarSection.viewNavbar config.stopAutocompleteMsg config.startSearchMsg
+    [ NavbarSection.viewNavbar config
     , Section.viewSection (rgb 255 100 255) [] []
     , Section.viewSection (rgb 0 0 255) [] []
     ]
